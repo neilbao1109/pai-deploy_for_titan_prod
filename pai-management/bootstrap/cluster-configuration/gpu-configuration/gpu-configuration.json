@@ -1,0 +1,13 @@
+{
+  "nodes" : {
+
+    "spark-slave1" : {
+        "gpuType" : "teslak80"
+    },
+
+    "spark-slave2" : {
+        "gpuType" : "teslak80"
+    }
+
+  }
+}

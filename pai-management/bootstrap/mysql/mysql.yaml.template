@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  ports:
+  - port: 3306
+    name: mysql
+  clusterIP: None
+  selector:
+    app: mysql
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: mysql
+spec:
+  serviceName: "mysql"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      hostNetwork: true
+      hostPID: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        args: ["--explicit-defaults-for-timestamp=true"]
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: Pass_word
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysql-data-storage
+        ports:
+        - containerPort: 3306
+          name: mysql
+      restartPolicy: Always
+      volumes:
+      - name: mysql-data-storage
+        hostPath:
+          path: {{ clusterinfo[ 'dataPath' ] }}/mysql
+      nodeSelector:
+        mysqlrole: "true"

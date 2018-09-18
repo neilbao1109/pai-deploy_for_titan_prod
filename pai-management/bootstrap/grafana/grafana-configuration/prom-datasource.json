@@ -1,0 +1,8 @@
+{
+  "name":"PM",
+  "type":"prometheus",
+  "url":"http://10.190.148.73:9091",
+  "access":"direct",
+  "basicAuth":false,
+  "isDefault":true
+}

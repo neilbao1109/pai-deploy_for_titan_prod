@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: airflow
+  labels:
+    app: airflow
+spec:
+  ports:
+  - port: 8080
+    name: airflow-web
+  clusterIP: None
+  selector:
+    app: airflow
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: airflow
+spec:
+  serviceName: "airflow"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: airflow
+    spec:
+      hostNetwork: true
+      hostPID: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - name: airflow
+        image: xingtanzjr/airflow-customized
+        env:
+        - name: MYSQL_HOST
+          value: mysql-0.mysql.default.svc.cluster.local
+        - name: MYSQL_USERNAME
+          value: root
+        - name: MYSQL_PASSWORD
+          value: Pass_word
+        - name: AIRFLOW__CORE__SQL_ALCHEMY_CONN
+          value: mysql://root:Pass_word@mysql-0.mysql.default.svc.cluster.local:3306/airflow
+        ports:
+        - containerPort: 8080
+          name: airflow-web
+      restartPolicy: Always
+      nodeSelector:
+        airflowRole: "true"
