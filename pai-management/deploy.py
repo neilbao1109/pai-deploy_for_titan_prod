@@ -58,7 +58,6 @@ def loadClusterObjectModel(config_path):
     return ret["service"]
 
 
-
 def read_template(template_path):
 
     with open(template_path, "r") as f:
@@ -382,7 +381,20 @@ def setup_logging():
 
     logging.config.dictConfig(logging_configuration)
 
-
+def set_env_var(cluster_config):
+    print("set env var")
+    hdfsUri = cluster_config["clusterinfo"]["restserverinfo"]["hdfs_uri"]
+    restServerUri = cluster_config["clusterinfo"]["webportalinfo"]["rest_server_uri"]
+    yarnWebPortalUri = cluster_config["clusterinfo"]["webportalinfo"]["yarn_web_portal_uri"]
+    exportsFile = "/etc/profile.d/titan-exports.sh"
+    
+    cmd = "sudo echo " + "export TITAN_HDFS_URI=" + hdfsUri + " > " + exportsFile + " && " \
+          "sudo echo " + "export TITAN_TRAIN_REST_API_ROOT=" + restServerUri + "/api/v1/" + " >> " + exportsFile + " && " \
+          "sudo echo " + "export TITAN_TRAIN_RUNTIME_IMAGE=neilbao/pai.run.tensorflow" + " >> " + exportsFile + " && " \
+          ". " + exportsFile
+          
+    print(cmd)
+    execute_shell(cmd, "Set env var failed")
 
 def main():
 
@@ -394,6 +406,7 @@ def main():
     parser.add_argument('-c', '--clean', action="store_true", help="clean the generated script")
     parser.add_argument('-d', '--deploy', action="store_true", help="deploy all the service")
     parser.add_argument('-s', '--service', default='all', help="bootStrap a target service")
+    parser.add_argument('-e', '--setenvvar', action="store_true", help="set the env var")
 
     args = parser.parse_args()
 
@@ -442,6 +455,9 @@ def main():
     # Optional : clean all the generated file.
     if args.clean:
         clean_up_generated_file(service_config)
+
+    if args.setenvvar:
+        set_env_var(cluster_config) 
 
 
 
