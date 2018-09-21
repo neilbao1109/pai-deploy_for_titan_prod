@@ -212,22 +212,22 @@ servicelist:
     startscript: start.sh
     stopscript: cleanup.sh
 
-  grafana:
-    prerequisite:
-      - cluster-configuration
-      - prometheus
-    templatelist:
-      - node-label.sh
-      - grafana.yaml
-      - cleanup.sh
-      - grafana-configuration/pai-clusterview-dashboard.json
-      - grafana-configuration/pai-nodeview-dashboard.json
-      - grafana-configuration/pai-jobview-dashboard.json
-      - grafana-configuration/pai-taskroleview-dashboard.json
-      - grafana-configuration/pai-taskview-dashboard.json
-      - grafana-configuration/prom-datasource.json
-    startscript: start.sh
-    stopscript: cleanup.sh
+  #grafana:
+  #  prerequisite:
+  #    - cluster-configuration
+  #    - prometheus
+  #  templatelist:
+  #    - node-label.sh
+  #    - grafana.yaml
+  #    - cleanup.sh
+  #    - grafana-configuration/pai-clusterview-dashboard.json
+  #    - grafana-configuration/pai-nodeview-dashboard.json
+  #    - grafana-configuration/pai-jobview-dashboard.json
+  #    - grafana-configuration/pai-taskroleview-dashboard.json
+  #    - grafana-configuration/pai-taskview-dashboard.json
+  #    - grafana-configuration/prom-datasource.json
+  #  startscript: start.sh
+  #  stopscript: cleanup.sh
 
   pylon:
     prerequisite:
