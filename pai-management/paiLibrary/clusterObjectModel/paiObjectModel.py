@@ -310,7 +310,8 @@ class paiObjectModel:
 
     def getYarnWebPortalUri(self):
 
-        ip = self.getMasterIP()
+        #ip = self.getMasterIP()
+        ip = self.getMasterHostname()
         port = "8088"
         ret = "http://{0}:{1}".format(ip, port)
         return ret
@@ -318,7 +319,8 @@ class paiObjectModel:
 
     def getPaiWebPortalUri(self):
 
-        ip = self.getMasterIP()
+        #ip = self.getMasterIP()
+        ip = self.getMasterHostname()
         port = self.rawData["serviceConfiguration"]["webportal"]["server-port"]
         ret = "http://{0}:{1}".format(ip, port)
         return ret
@@ -339,7 +341,8 @@ class paiObjectModel:
 
         for host in self.rawData["clusterConfiguration"]["machine-list"]:
             if "dashboard" in host and host["dashboard"] == "true":
-                vip = host["hostip"]
+                #vip = host["hostip"]
+                vip = host["hostname"]
                 break
 
         if vip == "":
@@ -354,7 +357,8 @@ class paiObjectModel:
 
     def getGrafanaUri(self):
 
-        vip = self.getMasterIP()
+        #vip = self.getMasterIP()
+        vip = self.getMasterHostname()
         port = self.rawData["serviceConfiguration"]["grafana"]["grafana-port"]
         ret = "http://{0}:{1}".format(vip, str(port))
         return ret
@@ -363,7 +367,8 @@ class paiObjectModel:
 
     def getPrometheusUri(self):
 
-        vip = self.getMasterIP()
+        #vip = self.getMasterIP()
+        vip = self.getMasterHostname()
         port = self.rawData["serviceConfiguration"]["prometheus"]["prometheus-port"]
         ret = "http://{0}:{1}".format(vip, str(port))
         return ret
@@ -372,7 +377,8 @@ class paiObjectModel:
 
     def getRestServerUri(self):
 
-        vip = self.getMasterIP()
+        #vip = self.getMasterIP()
+        vip = self.getMasterHostname()
         port = self.rawData["serviceConfiguration"]["restserver"]["server-port"]
         ret = "http://{0}:{1}".format(vip, str(port))
         return ret
@@ -385,7 +391,8 @@ class paiObjectModel:
         deli = ""
         for host in self.rawData["clusterConfiguration"]["machine-list"]:
             if "k8s-role" in host and host["k8s-role"] == "master":
-                tmp = "http://{0}:4001".format(host["hostip"])
+                #tmp = "http://{0}:4001".format(host["hostip"])
+                tmp = "http://{0}:4001".format(host["hostname"])
                 ret = ret + deli
                 ret = ret + tmp
                 deli = ","
@@ -400,7 +407,8 @@ class paiObjectModel:
 
     def getWebServiceUri(self):
 
-        vip = self.getMasterIP()
+        #vip = self.getMasterIP()
+        vip = self.getMasterHostname()
         port = self.rawData["serviceConfiguration"]["frameworklauncher"]["frameworklauncher_port"]
         ret = "http://{0}:{1}".format(vip, str(port))
         return ret
@@ -409,7 +417,8 @@ class paiObjectModel:
 
     def getWebhdfsUri(self):
 
-        vip = self.getMasterIP()
+        #vip = self.getMasterIP()
+        vip = self.getMasterHostname()
         port = "50070"
         ret = "http://{0}:{1}".format(vip, str(port))
         return ret
