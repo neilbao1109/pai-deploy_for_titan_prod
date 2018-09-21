@@ -418,7 +418,8 @@ class paiObjectModel:
 
     def getHdfsUri(self):
 
-        vip = self.getMasterIP()
+        #vip = self.getMasterIP()
+        vip = self.getMasterHostname()
         port = "9000"
         ret = "hdfs://{0}:{1}".format(vip, str(port))
         return ret

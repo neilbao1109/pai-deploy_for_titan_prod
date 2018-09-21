@@ -391,6 +391,7 @@ def set_env_var(cluster_config):
     cmd = "sudo echo " + "export TITAN_HDFS_URI=" + hdfsUri + " > " + exportsFile + " && " \
           "sudo echo " + "export TITAN_TRAIN_REST_API_ROOT=" + restServerUri + "/api/v1/" + " >> " + exportsFile + " && " \
           "sudo echo " + "export TITAN_TRAIN_RUNTIME_IMAGE=neilbao/pai.run.tensorflow" + " >> " + exportsFile + " && " \
+          "sudo echo " + "export AIRFLOW_HOME=/home/$(who -m | awk '{print $1;}')/airflow" + " >> " + exportsFile + " && " \
           ". " + exportsFile
           
     print(cmd)
