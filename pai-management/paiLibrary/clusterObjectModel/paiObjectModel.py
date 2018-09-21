@@ -214,7 +214,7 @@ class paiObjectModel:
             self.rawData["serviceConfiguration"]["frameworklauncher"]
         serviceDict["clusterinfo"]["frameworklauncher"]["frameworklauncher_port"] = \
             serviceDict["clusterinfo"]["frameworklauncher"]["frameworklauncher-port"]
-        serviceDict["clusterinfo"]["frameworklauncher"]["frameworklauncher_vip"] = self.getMasterIP()
+        serviceDict["clusterinfo"]["frameworklauncher"]["frameworklauncher_vip"] = self.getMasterHostname()
 
         # section : restserverinfo
 
@@ -252,7 +252,7 @@ class paiObjectModel:
 
         serviceDict["clusterinfo"]["grafanainfo"] = \
             self.rawData["serviceConfiguration"]["grafana"]
-        serviceDict["clusterinfo"]["grafanainfo"]["grafana_url"] = "http://{0}".format(self.getMasterIP())
+        serviceDict["clusterinfo"]["grafanainfo"]["grafana_url"] = "http://{0}".format(self.getMasterHostname())
         serviceDict["clusterinfo"]["grafanainfo"]["grafana_port"] = \
             serviceDict["clusterinfo"]["grafanainfo"]["grafana-port"]
 
@@ -260,7 +260,7 @@ class paiObjectModel:
 
         serviceDict["clusterinfo"]["prometheusinfo"] = \
             self.rawData["serviceConfiguration"]["prometheus"]
-        serviceDict["clusterinfo"]["prometheusinfo"]["prometheus_url"] = "http://{0}".format(self.getMasterIP())
+        serviceDict["clusterinfo"]["prometheusinfo"]["prometheus_url"] = "http://{0}".format(self.getMasterHostname())
         serviceDict["clusterinfo"]["prometheusinfo"]["prometheus_port"] = \
             serviceDict["clusterinfo"]["prometheusinfo"]["prometheus-port"]
         serviceDict["clusterinfo"]["prometheusinfo"]["node_exporter_port"] = \
